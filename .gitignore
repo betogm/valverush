@@ -3,7 +3,9 @@
 
 # Build directories
 build/
+build-pkg/
 cmake-build-*/
+*.deb
 
 # CMake / Ninja generated files
 CMakeCache.txt
