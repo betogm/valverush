@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>org.kde.valverush</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-2.0-or-later</project_license>
+  <name>ValveRush</name>
+  <summary>Connect pipes before the pressurized fluid leaks</summary>
+  <description>
+    <p>
+      ValveRush is a fast-paced logic puzzle game for KDE inspired by the classic
+      Pipe Mania. Place straight, curved, and cross pipes ahead of the advancing
+      fluid before pressure builds up and causes a leak.
+    </p>
+  </description>
+  <launchable type="desktop-id">org.kde.valverush.desktop</launchable>
+  <url type="homepage">https://apps.kde.org/valverush/</url>
+  <developer id="org.kde">
+    <name>Huberto Gastal Mayer</name>
+  </developer>
+  <provides>
+    <binary>valverush</binary>
+  </provides>
+  <content_rating type="oars-1.1" />
+</component>

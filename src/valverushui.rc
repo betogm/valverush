@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gui name="valverush"
+     version="1"
+     xmlns="http://www.kde.org/standards/kxmlgui/1.0"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://www.kde.org/standards/kxmlgui/1.0
+                         http://www.kde.org/standards/kxmlgui/1.0/kxmlgui.xsd">
+  <MenuBar>
+    <Menu name="game">
+      <Action name="fast_forward"/>
+    </Menu>
+    <Menu name="settings">
+      <Action name="show_coordinates"/>
+      <Action name="configure_theme"/>
+    </Menu>
+  </MenuBar>
+
+  <ToolBar name="mainToolBar">
+    <Action name="game_new"/>
+    <Action name="game_pause"/>
+    <Action name="fast_forward"/>
+    <Separator/>
+    <Action name="game_highscores"/>
+  </ToolBar>
+</gui>

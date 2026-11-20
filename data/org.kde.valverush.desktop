@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=ValveRush
+GenericName=Pipe Puzzle Game
+Comment=Connect pipes before the pressurized fluid leaks!
+Exec=valverush
+Icon=valverush
+Type=Application
+Categories=Qt;KDE;Game;LogicGame;
+X-DBUS-ServiceName=org.kde.valverush

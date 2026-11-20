@@ -1,0 +1,21 @@
+# SPDX-FileCopyrightText: 2026 Huberto Gastal Mayer <hubertogm@gmail.com>
+# SPDX-License-Identifier: CC0-1.0
+
+Dependencies:
+- 'on': ['@all']
+  'require':
+    'frameworks/extra-cmake-modules': '@same'
+    'frameworks/kconfig': '@same'
+    'frameworks/kconfigwidgets': '@same'
+    'frameworks/kcoreaddons': '@same'
+    'frameworks/kcrash': '@same'
+    'frameworks/kdbusaddons': '@same'
+    'frameworks/ki18n': '@same'
+    'frameworks/kiconthemes': '@same'
+    'frameworks/kwidgetsaddons': '@same'
+    'frameworks/kxmlgui': '@same'
+    'games/libkdegames': '@same'
+
+Options:
+  run-tests: true
+  require-passing-tests-on: ['Linux']
