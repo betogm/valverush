@@ -21,4 +21,11 @@
     <binary>valverush</binary>
   </provides>
   <content_rating type="oars-1.1" />
+  <releases>
+    <release version="1.0.0" date="2026-11-20">
+      <description>
+        <p>Initial release of ValveRush for KDE Plasma 6.</p>
+      </description>
+    </release>
+  </releases>
 </component>
