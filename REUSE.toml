@@ -5,6 +5,7 @@ path = [
     "README.md",
     ".gitignore",
     "data/**",
+    "doc/**",
     "themes/**",
     "src/valverush.kcfg",
     "src/valverush.kcfgc",

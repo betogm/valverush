@@ -1,0 +1,194 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY valverush "<application>ValveRush</application>">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % English "INCLUDE">
+]>
+<!-- SPDX-FileCopyrightText: 2026 Huberto Gastal Mayer <hubertogm@gmail.com> -->
+<!-- SPDX-License-Identifier: GPL-2.0-or-later -->
+
+<book id="valverush" lang="&language;">
+<bookinfo>
+<title>The &valverush; Handbook</title>
+
+<authorgroup>
+<author>
+<personname>
+<firstname>Huberto</firstname>
+<surname>Gastal Mayer</surname>
+</personname>
+<email>hubertogm@gmail.com</email>
+</author>
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+</authorgroup>
+
+<copyright>
+<year>2026</year>
+<holder>Huberto Gastal Mayer</holder>
+</copyright>
+<legalnotice>&FDLNotice;</legalnotice>
+
+<date>2026-11-20</date>
+<releaseinfo>1.0.0</releaseinfo>
+
+<abstract>
+<para>
+&valverush; is a fast-paced logic puzzle game for KDE inspired by the classic
+Pipe Mania. Place pipes on the board before the pressurized valve opens and
+the fluid leaks!
+</para>
+</abstract>
+
+<keywordset>
+<keyword>KDE</keyword>
+<keyword>kdegames</keyword>
+<keyword>game</keyword>
+<keyword>ValveRush</keyword>
+<keyword>Pipe Mania</keyword>
+<keyword>puzzle</keyword>
+<keyword>logic</keyword>
+</keywordset>
+</bookinfo>
+
+<chapter id="introduction">
+<title>Introduction</title>
+<para>
+&valverush; challenges you to build a continuous pipeline from a pressurized
+start valve before the fluid reaches an open end and leaks onto the floor.
+</para>
+<para>
+Each level starts with a brief countdown while the valve remains closed, giving
+you time to lay out the initial pipes. Once the valve opens, fluid advances
+steadily through connected segments. Reach the target pipe count for the level
+before a leak occurs to advance to the next stage!
+</para>
+</chapter>
+
+<chapter id="howto">
+<title>How to Play</title>
+<para>
+The game board is a 10×7 grid containing a <guilabel>Start Valve</guilabel>
+(marked in amber with an outlet direction) and, on higher levels or harder
+difficulties, solid obstacle blocks.
+</para>
+<itemizedlist>
+<listitem>
+<para>
+The <guilabel>Next Pipes</guilabel> panel on the right displays the next 5
+pipe pieces in your queue. The highlighted piece at the top is the next one
+you will place.
+</para>
+</listitem>
+<listitem>
+<para>
+Click any empty cell (or navigate with the arrow keys and press
+<keycap>Enter</keycap> or <keycap>Space</keycap>) to place the active pipe.
+</para>
+</listitem>
+<listitem>
+<para>
+You may replace an existing pipe that has not yet been filled with fluid by
+clicking it again, at the cost of a small score penalty (-50 points).
+</para>
+</listitem>
+<listitem>
+<para>
+Once your pipeline is long enough, activate <guibutton>Fast Flow</guibutton>
+(shortcut <keycap>F</keycap>) to accelerate the fluid and earn bonus points
+for every segment traversed in fast-forward mode.
+</para>
+</listitem>
+</itemizedlist>
+</chapter>
+
+<chapter id="rules_and_tips">
+<title>Rules, Scoring, and Tips</title>
+<sect1 id="scoring">
+<title>Scoring</title>
+<itemizedlist>
+<listitem><para><emphasis>Standard pipe filled:</emphasis> +100 points</para></listitem>
+<listitem><para><emphasis>Extra pipe beyond level target:</emphasis> +200 additional points</para></listitem>
+<listitem><para><emphasis>Cross pipe double traversal:</emphasis> +500 bonus points when fluid passes through both perpendicular channels of a cross pipe</para></listitem>
+<listitem><para><emphasis>Fast Flow bonus:</emphasis> +50 points per pipe filled while Fast Flow is active</para></listitem>
+<listitem><para><emphasis>Replacing a pipe:</emphasis> -50 points</para></listitem>
+</itemizedlist>
+</sect1>
+
+<sect1 id="tips">
+<title>Strategy Tips</title>
+<itemizedlist>
+<listitem><para>Use the initial countdown to build a clean path away from the start valve's outlet.</para></listitem>
+<listitem><para>Save cross pipes for loops so you can cross the same tile twice for the +500 bonus.</para></listitem>
+<listitem><para>Don't trigger <guibutton>Fast Flow</guibutton> until you are sure your pipeline meets the level target.</para></listitem>
+</itemizedlist>
+</sect1>
+</chapter>
+
+<chapter id="interface">
+<title>Interface Overview</title>
+<sect1 id="menus">
+<title>Menu Items</title>
+<variablelist>
+<varlistentry>
+<term><menuchoice>
+<shortcut><keycombo action="simul">&Ctrl;<keycap>N</keycap></keycombo></shortcut>
+<guimenu>Game</guimenu>
+<guimenuitem>New</guimenuitem>
+</menuchoice></term>
+<listitem><para>Starts a new game from Level 1.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut><keycap>P</keycap></shortcut>
+<guimenu>Game</guimenu>
+<guimenuitem>Pause</guimenuitem>
+</menuchoice></term>
+<listitem><para>Pauses or resumes the countdown and fluid flow.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut><keycap>F</keycap></shortcut>
+<guimenu>Game</guimenu>
+<guimenuitem>Fast Forward Flow</guimenuitem>
+</menuchoice></term>
+<listitem><para>Accelerates fluid movement for bonus points.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut><keycombo action="simul">&Ctrl;<keycap>H</keycap></keycombo></shortcut>
+<guimenu>Game</guimenu>
+<guimenuitem>Show High Scores</guimenuitem>
+</menuchoice></term>
+<listitem><para>Displays the local high score table per difficulty level.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Configure Theme...</guimenuitem>
+</menuchoice></term>
+<listitem><para>Choose between Breeze Industrial, Neon Pipeline, and Classic Symbian visual themes.</para></listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+</chapter>
+
+<chapter id="credits">
+<title>Credits and License</title>
+<para>&valverush;</para>
+<para>
+Program copyright 2026 Huberto Gastal Mayer <email>hubertogm@gmail.com</email>
+</para>
+<para>
+Documentation copyright 2026 Huberto Gastal Mayer <email>hubertogm@gmail.com</email>
+</para>
+<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
+&underGPL;
+&underFDL;
+</chapter>
+
+&documentation.index;
+</book>

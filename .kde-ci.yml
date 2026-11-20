@@ -14,6 +14,7 @@ Dependencies:
     'frameworks/kiconthemes': '@same'
     'frameworks/kwidgetsaddons': '@same'
     'frameworks/kxmlgui': '@same'
+    'frameworks/kdoctools': '@same'
     'games/libkdegames': '@same'
 
 Options:

@@ -42,10 +42,15 @@ find_package(KF6 ${KF_MIN_VERSION} REQUIRED COMPONENTS
     XmlGui
 )
 
+find_package(KF6DocTools ${KF_MIN_VERSION})
 find_package(KDEGames6 REQUIRED)
 
 add_subdirectory(src)
 add_subdirectory(themes)
+
+if(KF6DocTools_FOUND)
+    add_subdirectory(doc)
+endif()
 
 enable_testing()
 add_subdirectory(tests)

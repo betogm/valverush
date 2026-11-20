@@ -1,0 +1,194 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY valverush "<application>ValveRush</application>">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Brazilian-Portuguese "INCLUDE">
+]>
+<!-- SPDX-FileCopyrightText: 2026 Huberto Gastal Mayer <hubertogm@gmail.com> -->
+<!-- SPDX-License-Identifier: GPL-2.0-or-later -->
+
+<book id="valverush" lang="&language;">
+<bookinfo>
+<title>Manual do &valverush;</title>
+
+<authorgroup>
+<author>
+<personname>
+<firstname>Huberto</firstname>
+<surname>Gastal Mayer</surname>
+</personname>
+<email>hubertogm@gmail.com</email>
+</author>
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+</authorgroup>
+
+<copyright>
+<year>2026</year>
+<holder>Huberto Gastal Mayer</holder>
+</copyright>
+<legalnotice>&FDLNotice;</legalnotice>
+
+<date>2026-11-20</date>
+<releaseinfo>1.0.0</releaseinfo>
+
+<abstract>
+<para>
+O &valverush; é um jogo de quebra-cabeça lógico para o KDE inspirado no clássico
+Pipe Mania. Posicione os canos no tabuleiro antes que a válvula pressurizada
+abra e o fluido vaze!
+</para>
+</abstract>
+
+<keywordset>
+<keyword>KDE</keyword>
+<keyword>kdegames</keyword>
+<keyword>jogo</keyword>
+<keyword>ValveRush</keyword>
+<keyword>Pipe Mania</keyword>
+<keyword>quebra-cabeça</keyword>
+<keyword>lógica</keyword>
+</keywordset>
+</bookinfo>
+
+<chapter id="introduction">
+<title>Introdução</title>
+<para>
+No &valverush;, seu objetivo é construir uma tubulação contínua a partir de uma
+válvula de início pressurizada antes que o fluido chegue a uma extremidade aberta
+e vaze.
+</para>
+<para>
+Cada fase começa com uma contagem regressiva enquanto a válvula permanece fechada,
+dando tempo para montar o trecho inicial. Quando a válvula abre, o fluido avança
+continuamente pelos canos conectados. Alcance a meta mínima de canos da fase antes
+que ocorra um vazamento para avançar ao próximo nível!
+</para>
+</chapter>
+
+<chapter id="howto">
+<title>Como Jogar</title>
+<para>
+O tabuleiro é uma grade 10×7 contendo a <guilabel>Válvula de Início</guilabel>
+(destacada em âmbar com a direção de saída) e, em fases ou dificuldades maiores,
+blocos de obstáculo.
+</para>
+<itemizedlist>
+<listitem>
+<para>
+O painel <guilabel>Next Pipes</guilabel> à direita mostra as próximas 5 peças
+da fila. A peça destacada no topo é a próxima que será colocada no tabuleiro.
+</para>
+</listitem>
+<listitem>
+<para>
+Clique em qualquer célula vazia (ou navegue com as setas do teclado e pressione
+<keycap>Enter</keycap> ou <keycap>Espaço</keycap>) para posicionar o cano ativo.
+</para>
+</listitem>
+<listitem>
+<para>
+Você pode substituir um cano já colocado que ainda não tenha sido preenchido
+pelo fluido clicando nele novamente, com uma pequena penalidade (-50 pontos).
+</para>
+</listitem>
+<listitem>
+<para>
+Quando a tubulação já estiver longa o suficiente, ative o
+<guibutton>Fast Flow</guibutton> (atalho <keycap>F</keycap>) para acelerar o
+fluido e ganhar pontos extras por cada segmento percorrido em modo acelerado.
+</para>
+</listitem>
+</itemizedlist>
+</chapter>
+
+<chapter id="rules_and_tips">
+<title>Regras, Pontuação e Dicas</title>
+<sect1 id="scoring">
+<title>Pontuação</title>
+<itemizedlist>
+<listitem><para><emphasis>Cano padrão preenchido:</emphasis> +100 pontos</para></listitem>
+<listitem><para><emphasis>Cano extra além da meta da fase:</emphasis> +200 pontos adicionais</para></listitem>
+<listitem><para><emphasis>Travessia dupla em cano de cruzamento:</emphasis> +500 pontos de bônus quando o fluido passa pelos dois eixos perpendiculares de um cruzamento</para></listitem>
+<listitem><para><emphasis>Bônus de fluxo acelerado:</emphasis> +50 pontos por cano preenchido com o Fast Flow ativo</para></listitem>
+<listitem><para><emphasis>Substituição de cano:</emphasis> -50 pontos</para></listitem>
+</itemizedlist>
+</sect1>
+
+<sect1 id="tips">
+<title>Dicas de Estratégia</title>
+<itemizedlist>
+<listitem><para>Aproveite a contagem regressiva inicial para abrir caminho a partir da saída da válvula.</para></listitem>
+<listitem><para>Guarde canos de cruzamento para criar laços e passar duas vezes pela mesma célula (+500 pontos).</para></listitem>
+<listitem><para>Só ative o <guibutton>Fast Flow</guibutton> quando tiver certeza de que a tubulação já atinge a meta da fase.</para></listitem>
+</itemizedlist>
+</sect1>
+</chapter>
+
+<chapter id="interface">
+<title>Visão Geral da Interface</title>
+<sect1 id="menus">
+<title>Itens de Menu</title>
+<variablelist>
+<varlistentry>
+<term><menuchoice>
+<shortcut><keycombo action="simul">&Ctrl;<keycap>N</keycap></keycombo></shortcut>
+<guimenu>Jogo</guimenu>
+<guimenuitem>Novo</guimenuitem>
+</menuchoice></term>
+<listitem><para>Inicia um novo jogo a partir do Nível 1.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut><keycap>P</keycap></shortcut>
+<guimenu>Jogo</guimenu>
+<guimenuitem>Pausar</guimenuitem>
+</menuchoice></term>
+<listitem><para>Pausa ou retoma a contagem regressiva e o fluxo do fluido.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut><keycap>F</keycap></shortcut>
+<guimenu>Jogo</guimenu>
+<guimenuitem>Fast Forward Flow</guimenuitem>
+</menuchoice></term>
+<listitem><para>Acelera o avanço do fluido para ganhar pontos extras.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut><keycombo action="simul">&Ctrl;<keycap>H</keycap></keycombo></shortcut>
+<guimenu>Jogo</guimenu>
+<guimenuitem>Mostrar recordes</guimenuitem>
+</menuchoice></term>
+<listitem><para>Exibe a tabela local de recordes por nível de dificuldade.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Configurações</guimenu>
+<guimenuitem>Configure Theme...</guimenuitem>
+</menuchoice></term>
+<listitem><para>Permite escolher entre os temas visuais Breeze Industrial, Neon Pipeline e Classic Symbian.</para></listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+</chapter>
+
+<chapter id="credits">
+<title>Créditos e Licença</title>
+<para>&valverush;</para>
+<para>
+Direitos autorais do programa 2026 Huberto Gastal Mayer <email>hubertogm@gmail.com</email>
+</para>
+<para>
+Direitos autorais da documentação 2026 Huberto Gastal Mayer <email>hubertogm@gmail.com</email>
+</para>
+<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
+&underGPL;
+&underFDL;
+</chapter>
+
+&documentation.index;
+</book>
