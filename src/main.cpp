@@ -7,7 +7,9 @@
 
 #include <KAboutData>
 #include <KCrash>
+#ifndef Q_OS_WIN
 #include <KDBusService>
+#endif
 #include <KLocalizedString>
 #include <QApplication>
 #include <QCommandLineParser>
@@ -38,7 +40,9 @@ int main(int argc, char *argv[])
     parser.process(app);
     aboutData.processCommandLine(&parser);
 
+#ifndef Q_OS_WIN
     KDBusService service;
+#endif
 
     auto *window = new ValveRush::MainWindow();
     window->show();

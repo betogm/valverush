@@ -6,6 +6,7 @@ path = [
     ".gitignore",
     "data/**",
     "doc/**",
+    ".github/**",
     "themes/**",
     "src/valverush.kcfg",
     "src/valverush.kcfgc",

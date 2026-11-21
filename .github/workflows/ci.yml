@@ -1,0 +1,150 @@
+# SPDX-FileCopyrightText: 2026 Huberto Gastal Mayer <hubertogm@gmail.com>
+# SPDX-License-Identifier: CC0-1.0
+
+name: CI & Release
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  linux:
+    name: Linux (Debian Trixie + .deb)
+    runs-on: ubuntu-latest
+    container:
+      image: debian:trixie
+
+    steps:
+      - name: Install build dependencies
+        run: |
+          apt-get update
+          DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+            build-essential ca-certificates cmake file ninja-build git pkg-config \
+            clang-format desktop-file-utils appstream \
+            extra-cmake-modules qt6-base-dev qt6-svg-dev \
+            libkdegames6-dev libkf6config-dev libkf6configwidgets-dev \
+            libkf6coreaddons-dev libkf6crash-dev libkf6dbusaddons-dev \
+            libkf6doctools-dev libkf6i18n-dev libkf6iconthemes-dev \
+            libkf6widgetsaddons-dev libkf6xmlgui-dev
+
+      - uses: actions/checkout@v4
+
+      - name: Configure
+        run: |
+          cmake -B build -S . -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_INSTALL_PREFIX=/usr
+
+      - name: Build
+        run: cmake --build build
+
+      - name: Validate desktop file
+        run: desktop-file-validate data/org.kde.valverush.desktop
+
+      - name: Check clang-format
+        run: |
+          git config --global --add safe.directory "$PWD"
+          cmake --build build --target clang-format
+          git diff --exit-code -- src/ tests/
+
+      - name: Run tests
+        run: ctest --test-dir build --output-on-failure
+
+      - name: Package .deb
+        run: |
+          cpack --config build/CPackConfig.cmake -B "$PWD/dist-deb"
+          ls -lh dist-deb/*.deb
+
+      - name: Upload .deb artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: valverush-linux-deb
+          path: dist-deb/*.deb
+
+  windows:
+    name: Windows (MinGW-w64 Cross-Compile)
+    runs-on: ubuntu-latest
+    container:
+      image: fedora:latest
+
+    steps:
+      - name: Install MinGW-w64 & Qt6 cross-compile dependencies
+        run: |
+          dnf install -y --setopt=install_weak_deps=False \
+            mingw64-gcc-c++ \
+            mingw64-cmake \
+            mingw64-pkg-config \
+            mingw64-qt6-qtbase \
+            mingw64-qt6-qtsvg \
+            mingw64-qt6-qttools \
+            mingw64-qt6-qtdeclarative \
+            mingw64-qt6-qtshadertools \
+            mingw64-libpng \
+            mingw64-openal-soft \
+            mingw64-zlib \
+            qt6-qtbase-devel \
+            qt6-qttools-devel \
+            kf6-kconfig-devel \
+            kf6-kcoreaddons-devel \
+            extra-cmake-modules \
+            cmake \
+            ninja-build \
+            git \
+            gettext \
+            7zip \
+            zip \
+            python3 \
+            tar
+
+      - uses: actions/checkout@v4
+
+      - name: Cache KF6 + libkdegames MinGW sysroot
+        uses: actions/cache@v4
+        with:
+          path: /opt/kde-mingw64
+          key: kde-mingw64-kf6.30.0-games26.08.0-v2
+
+      - name: Prepare toolchain and scripts
+        run: |
+          mkdir -p /work /out
+          cp .github/scripts/mingw/toolchain-kde-mingw64.cmake /work/
+          cp .github/scripts/mingw/build-deps.sh /work/
+          cp .github/scripts/mingw/build-valverush.sh /work/
+          chmod +x /work/build-deps.sh /work/build-valverush.sh
+
+      - name: Cross-compile KF6 + libkdegames + ValveRush
+        run: |
+          mkdir -p /src
+          ln -sfn "$PWD" /src/valverush
+          /work/build-valverush.sh
+          cp /out/valverush-windows-x64.zip "$PWD/valverush-windows-x64.zip"
+
+      - name: Upload Windows artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: valverush-windows-x64
+          path: valverush-windows-x64.zip
+
+  release:
+    name: Attach artifacts to GitHub Release
+    needs: [linux, windows]
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Upload release assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            artifacts/valverush-linux-deb/*.deb
+            artifacts/valverush-windows-x64/*.zip

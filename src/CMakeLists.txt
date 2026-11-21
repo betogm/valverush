@@ -14,6 +14,10 @@ kconfig_add_kcfg_files(valverush_SRCS valverush.kcfgc)
 
 add_executable(valverush ${valverush_SRCS})
 
+if(WIN32)
+    set_target_properties(valverush PROPERTIES WIN32_EXECUTABLE TRUE)
+endif()
+
 target_link_libraries(valverush
     PRIVATE
         KDEGames6
@@ -21,7 +25,6 @@ target_link_libraries(valverush
         KF6::ConfigWidgets
         KF6::CoreAddons
         KF6::Crash
-        KF6::DBusAddons
         KF6::I18n
         KF6::IconThemes
         KF6::WidgetsAddons
@@ -29,6 +32,10 @@ target_link_libraries(valverush
         Qt6::Svg
         Qt6::Widgets
 )
+
+if(NOT WIN32)
+    target_link_libraries(valverush PRIVATE KF6::DBusAddons)
+endif()
 
 install(TARGETS valverush ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES valverushui.rc DESTINATION ${KDE_INSTALL_KXMLGUIDIR}/valverush)

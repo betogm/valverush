@@ -35,12 +35,15 @@ find_package(KF6 ${KF_MIN_VERSION} REQUIRED COMPONENTS
     ConfigWidgets
     CoreAddons
     Crash
-    DBusAddons
     I18n
     IconThemes
     WidgetsAddons
     XmlGui
 )
+
+if(NOT WIN32)
+    find_package(KF6DBusAddons ${KF_MIN_VERSION} REQUIRED)
+endif()
 
 find_package(KF6DocTools ${KF_MIN_VERSION})
 find_package(KDEGames6 REQUIRED)
