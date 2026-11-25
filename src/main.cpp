@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 
     KAboutData aboutData(QStringLiteral("valverush"),
                          i18n("ValveRush"),
-                         QStringLiteral("1.0.0"),
+                         QStringLiteral("1.1.0"),
                          i18n("Connect pipes before the pressurized fluid leaks!"),
                          KAboutLicense::GPL_V2,
                          i18n("Copyright (C) 2026 Huberto Gastal Mayer"),
