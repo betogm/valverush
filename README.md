@@ -11,6 +11,7 @@ Place straight, curved, and cross pipes on the board before the pressurized valv
   - Pre-flow countdown timer before the valve opens.
   - **Fast Flow** (`F`) to accelerate the fluid and earn bonus points.
   - **Cross Pipes** supporting perpendicular double traversal for extra bonus points.
+  - **Narrow (Restrictor) Pipes** (horizontal & vertical) that slow down fluid flow to buy extra time.
   - Ability to replace unfilled pipes (with a small score penalty).
 - **KDE Games Integration**:
   - **Difficulty Levels** (`KGameDifficulty`: Easy, Medium, Hard).

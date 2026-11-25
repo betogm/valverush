@@ -119,6 +119,7 @@ for every segment traversed in fast-forward mode.
 <itemizedlist>
 <listitem><para>Use the initial countdown to build a clean path away from the start valve's outlet.</para></listitem>
 <listitem><para>Save cross pipes for loops so you can cross the same tile twice for the +500 bonus.</para></listitem>
+<listitem><para>Use narrow (restrictor) horizontal and vertical pipes strategically to slow down the fluid and buy extra time to build ahead.</para></listitem>
 <listitem><para>Don't trigger <guibutton>Fast Flow</guibutton> until you are sure your pipeline meets the level target.</para></listitem>
 </itemizedlist>
 </sect1>

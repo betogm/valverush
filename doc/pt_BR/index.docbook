@@ -119,6 +119,7 @@ fluido e ganhar pontos extras por cada segmento percorrido em modo acelerado.
 <itemizedlist>
 <listitem><para>Aproveite a contagem regressiva inicial para abrir caminho a partir da saída da válvula.</para></listitem>
 <listitem><para>Guarde canos de cruzamento para criar laços e passar duas vezes pela mesma célula (+500 pontos).</para></listitem>
+<listitem><para>Use os canos finos (redutores) horizontais e verticais estrategicamente para desacelerar o fluido e ganhar tempo extra para montar o caminho.</para></listitem>
 <listitem><para>Só ative o <guibutton>Fast Flow</guibutton> quando tiver certeza de que a tubulação já atinge a meta da fase.</para></listitem>
 </itemizedlist>
 </sect1>

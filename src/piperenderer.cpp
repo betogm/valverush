@@ -176,10 +176,29 @@ void PipeRenderer::drawTile(QPainter &painter,
     const qreal pipeOuterW = rect.width() * 0.38;
     const qreal pipeInnerW = rect.width() * 0.24;
     const qreal fluidW = rect.width() * 0.18;
+    const bool narrow = GameEngine::isNarrowPipe(tile.type);
+    const qreal activeFluidW = narrow ? rect.width() * 0.08 : fluidW;
 
     auto drawPipeShape = [&](Direction d1, Direction d2) {
         drawSegment(painter, rect, d1, d2, pipeOuterW, palette.pipeOuter);
-        drawSegment(painter, rect, d1, d2, pipeInnerW, palette.pipeInner);
+        drawSegment(painter, rect, d1, d2, pipeInnerW, narrow ? palette.pipeOuter.darker(135) : palette.pipeInner);
+        if (narrow) {
+            drawSegment(painter, rect, d1, d2, rect.width() * 0.11, palette.pipeInner);
+            // Subtle reducer collars near each end to highlight the flow-slowing constriction
+            const qreal collarThick = qMax(2.0, pipeOuterW * 0.16);
+            const qreal collarLen = pipeOuterW * 0.92;
+            const QPointF c = rect.center();
+            const qreal offset = rect.width() * 0.24;
+            painter.setPen(Qt::NoPen);
+            painter.setBrush(palette.valveColor);
+            if (d1 == Direction::West || d1 == Direction::East) {
+                painter.drawRoundedRect(QRectF(c.x() - offset - collarThick / 2.0, c.y() - collarLen / 2.0, collarThick, collarLen), 1.0, 1.0);
+                painter.drawRoundedRect(QRectF(c.x() + offset - collarThick / 2.0, c.y() - collarLen / 2.0, collarThick, collarLen), 1.0, 1.0);
+            } else {
+                painter.drawRoundedRect(QRectF(c.x() - collarLen / 2.0, c.y() - offset - collarThick / 2.0, collarLen, collarThick), 1.0, 1.0);
+                painter.drawRoundedRect(QRectF(c.x() - collarLen / 2.0, c.y() + offset - collarThick / 2.0, collarLen, collarThick), 1.0, 1.0);
+            }
+        }
         drawFlange(painter, rect, d1, pipeOuterW, palette.pipeFlange);
         drawFlange(painter, rect, d2, pipeOuterW, palette.pipeFlange);
     };
@@ -188,9 +207,11 @@ void PipeRenderer::drawTile(QPainter &painter,
     case PipeType::Empty:
         break;
     case PipeType::StraightH:
+    case PipeType::NarrowH:
         drawPipeShape(Direction::West, Direction::East);
         break;
     case PipeType::StraightV:
+    case PipeType::NarrowV:
         drawPipeShape(Direction::North, Direction::South);
         break;
     case PipeType::CornerNE:
@@ -284,7 +305,7 @@ void PipeRenderer::drawTile(QPainter &painter,
 
     // Primary flow for non-Cross, non-Start pipes
     if (tile.type != PipeType::Cross && tile.type != PipeType::Start && tile.hasPrimaryFlow) {
-        drawPartialFlow(painter, rect, tile.primaryEntry, tile.primaryExit, tile.primaryProgress, fluidW, palette);
+        drawPartialFlow(painter, rect, tile.primaryEntry, tile.primaryExit, tile.primaryProgress, activeFluidW, palette);
     }
 
     if (isLeak) {

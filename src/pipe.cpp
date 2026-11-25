@@ -121,6 +121,7 @@ std::optional<Direction> GameEngine::exitDirectionFor(PipeType type, Direction e
     case PipeType::Blocked:
         return std::nullopt;
     case PipeType::StraightH:
+    case PipeType::NarrowH:
         if (entrySide == Direction::West) {
             return Direction::East;
         }
@@ -129,6 +130,7 @@ std::optional<Direction> GameEngine::exitDirectionFor(PipeType type, Direction e
         }
         return std::nullopt;
     case PipeType::StraightV:
+    case PipeType::NarrowV:
         if (entrySide == Direction::North) {
             return Direction::South;
         }
@@ -203,18 +205,21 @@ void GameEngine::step(qreal dtSeconds)
     }
 
     const qreal speedMultiplier = m_fastForward ? 5.5 : 1.0;
-    qreal remainingProgress = m_flowSpeed * speedMultiplier * dtSeconds;
+    qreal remainingTime = dtSeconds;
 
-    while (remainingProgress > 0.0 && m_phase == GamePhase::Flowing) {
+    while (remainingTime > 0.0 && m_phase == GamePhase::Flowing) {
         TileState &current = m_grid[m_flowCell.y() * m_cols + m_flowCell.x()];
+        const qreal narrowMultiplier = isNarrowPipe(current.type) ? 0.45 : 1.0;
+        const qreal effectiveSpeed = m_flowSpeed * speedMultiplier * narrowMultiplier;
         qreal &progress = m_flowUsingSecondary ? current.secondaryProgress : current.primaryProgress;
         const qreal needed = 1.0 - progress;
-        if (remainingProgress < needed) {
-            progress += remainingProgress;
-            remainingProgress = 0.0;
+        const qreal maxAdvance = effectiveSpeed * remainingTime;
+        if (maxAdvance < needed) {
+            progress += maxAdvance;
+            remainingTime = 0.0;
         } else {
             progress = 1.0;
-            remainingProgress -= needed;
+            remainingTime -= needed / effectiveSpeed;
             advanceFlowCell();
         }
     }
@@ -433,12 +438,14 @@ void GameEngine::generateLevel(int level)
 
 PipeType GameEngine::drawRandomPipe()
 {
-    // Weighted distribution similar to classic Pipe Mania
-    static constexpr std::array<PipeType, 14> bag = {
+    // Weighted distribution similar to classic Pipe Mania, including narrow slow-down pipes
+    static constexpr std::array<PipeType, 16> bag = {
         PipeType::StraightH,
         PipeType::StraightH,
         PipeType::StraightV,
         PipeType::StraightV,
+        PipeType::NarrowH,
+        PipeType::NarrowV,
         PipeType::CornerNE,
         PipeType::CornerNE,
         PipeType::CornerES,

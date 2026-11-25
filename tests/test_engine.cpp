@@ -26,6 +26,40 @@ private Q_SLOTS:
 
         QCOMPARE(GameEngine::exitDirectionFor(PipeType::Cross, Direction::North), Direction::South);
         QCOMPARE(GameEngine::exitDirectionFor(PipeType::Cross, Direction::West), Direction::East);
+
+        QCOMPARE(GameEngine::exitDirectionFor(PipeType::NarrowH, Direction::West), Direction::East);
+        QCOMPARE(GameEngine::exitDirectionFor(PipeType::NarrowV, Direction::North), Direction::South);
+        QVERIFY(!GameEngine::exitDirectionFor(PipeType::NarrowH, Direction::North).has_value());
+        QVERIFY(!GameEngine::exitDirectionFor(PipeType::NarrowV, Direction::West).has_value());
+    }
+
+    void testNarrowPipeSlowsFlow()
+    {
+        auto measureSteps = [](PipeType pipeType) {
+            GameEngine engine;
+            engine.startNewGame();
+            for (int r = 0; r < engine.rows(); ++r) {
+                for (int c = 0; c < engine.cols(); ++c) {
+                    engine.setTileForTest(c, r, PipeType::Empty, false);
+                }
+            }
+            engine.setStartCellForTest(1, 3, Direction::East);
+            engine.setTileForTest(2, 3, pipeType, false);
+            engine.setTileForTest(3, 3, PipeType::StraightH, false);
+
+            int ticks = 0;
+            while (engine.pipesFilled() < 2 && ticks < 200) {
+                if (engine.activeFlowCell() == QPoint(2, 3)) {
+                    ++ticks;
+                }
+                engine.step(0.1);
+            }
+            return ticks;
+        };
+
+        const int straightTicks = measureSteps(PipeType::StraightH);
+        const int narrowTicks = measureSteps(PipeType::NarrowH);
+        QVERIFY(narrowTicks > straightTicks * 2);
     }
 
     void testPlaceAndReplacePipe()

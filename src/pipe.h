@@ -59,6 +59,8 @@ enum class PipeType {
     Empty = 0,
     StraightH, // West <-> East
     StraightV, // North <-> South
+    NarrowH, // West <-> East (thinner, slows fluid flow)
+    NarrowV, // North <-> South (thinner, slows fluid flow)
     CornerNE, // North <-> East
     CornerES, // East <-> South
     CornerSW, // South <-> West
@@ -202,6 +204,11 @@ public:
      * accepts fluid entering from @p entrySide.
      */
     [[nodiscard]] static std::optional<Direction> exitDirectionFor(PipeType type, Direction entrySide, Direction specialDir = Direction::East) noexcept;
+
+    [[nodiscard]] static constexpr bool isNarrowPipe(PipeType type) noexcept
+    {
+        return type == PipeType::NarrowH || type == PipeType::NarrowV;
+    }
 
     /**
      * Advances simulation by @p dtSeconds (exposed for deterministic unit tests as well as timer).
