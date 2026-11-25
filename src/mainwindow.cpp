@@ -25,7 +25,7 @@ namespace ValveRush
 MainWindow::MainWindow(QWidget *parent)
     : KXmlGuiWindow(parent)
     , m_engine(new GameEngine(this))
-    , m_difficulty(new KGameDifficulty(this))
+    , m_difficulty(KGameDifficulty::global())
     , m_themeProvider(new KGameThemeProvider(QByteArrayLiteral("Theme"), this))
 {
     m_themeProvider->discoverThemes(QStringLiteral("themes"), QStringLiteral("breeze"));
@@ -66,7 +66,7 @@ void MainWindow::setupDifficulty()
     m_difficulty->addStandardLevel(KGameDifficultyLevel::Easy);
     m_difficulty->addStandardLevel(KGameDifficultyLevel::Medium, true);
     m_difficulty->addStandardLevel(KGameDifficultyLevel::Hard);
-    KGameDifficultyGUI::init(this, m_difficulty);
+    KGameDifficultyGUI::init(this);
     connect(m_difficulty, &KGameDifficulty::currentLevelChanged, this, &MainWindow::onDifficultyChanged);
 }
 
